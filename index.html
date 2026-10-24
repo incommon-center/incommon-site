@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="In Common: Art, Law and Technology Center. Articles, exhibition reviews and conversations where law and art intersect.">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>In Common</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500&display=swap">
+<style>
+/* Layout: a gallery site. White walls, one typeface, a 12-column grid with wide margins, large quiet type, captions under everything. */
+:root {
+  --wall: #FFFFFF;
+  --ink: #111111;
+  --muted: #73736F;
+  --rule: #E6E6E2;
+  --plate: #F2F2EF;      /* empty image plate */
+  --plate-ink: #A3A39E;
+  --sans: "Hanken Grotesk", "IBM Plex Sans KR", "Helvetica Neue", Arial, sans-serif;
+  --ko: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wall: #0F0F0F; --ink: #EDEDEA; --muted: #8E8E89; --rule: #262624; --plate: #1A1A19; --plate-ink: #5C5C58;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --wall: #0F0F0F; --ink: #EDEDEA; --muted: #8E8E89; --rule: #262624; --plate: #1A1A19; --plate-ink: #5C5C58;
+  color-scheme: dark;
+}
+
+/* Language switch */
+:root:not(.lang-ko) [lang="ko"] { display: none !important; }
+:root.lang-ko [lang="en"] { display: none !important; }
+:root.lang-ko body { font-family: var(--ko); }
+
+* { box-sizing: border-box; }
+body { background: var(--wall); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--wall); }
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--muted); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-weight: 500; text-wrap: balance; letter-spacing: -0.015em; }
+
+.wrap {
+  max-width: 1280px; margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+@media (max-width: 600px) { .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); } }
+.cap { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.01em; }
+
+/* Header */
+header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--wall); }
+header.site .wrap { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-block: 22px; }
+.wordmark { font-weight: 600; font-size: 0.95rem; letter-spacing: -0.005em; }
+nav.links { display: flex; gap: 28px; flex-wrap: wrap; align-items: baseline; font-size: 0.92rem; }
+.lang { display: flex; gap: 6px; align-items: baseline; }
+.lang button { font: inherit; font-size: 0.92rem; background: none; border: 0; padding: 0; color: var(--muted); cursor: pointer; }
+.lang button[aria-pressed="true"] { color: var(--ink); }
+.lang span { color: var(--rule); }
+.menu-btn { display: none; font: inherit; font-size: 0.92rem; background: none; border: 0; padding: 0; color: var(--ink); cursor: pointer; }
+@media (max-width: 820px) {
+  header.site .wrap { flex-wrap: wrap; }
+  .menu-btn { display: inline; }
+  nav.links { display: none; flex-basis: 100%; flex-direction: column; gap: 14px; padding-top: 18px; font-size: 1.4rem; }
+  nav.links.open { display: flex; }
+  .lang button { font-size: 1.4rem; }
+}
+
+/* Grid sections */
+section { border-top: 1px solid var(--rule); }
+section > .wrap { padding-block: 64px 88px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; }
+.sec-name { grid-column: 1 / 4; font-size: 0.92rem; }
+.sec-body { grid-column: 4 / 13; min-width: 0; }
+@media (max-width: 820px) { section > .wrap { padding-block: 40px 64px; row-gap: 20px; } .sec-name, .sec-body { grid-column: 1 / -1; } }
+
+/* Hero */
+.hero { border-top: 0; }
+.hero > .wrap { padding-block: 96px 112px; }
+.hero h1 { grid-column: 1 / 12; font-size: clamp(2.4rem, 6.4vw, 5.6rem); line-height: 1.02; letter-spacing: -0.035em; }
+.hero .places { grid-column: 1 / -1; display: flex; gap: 32px; flex-wrap: wrap; font-size: 0.92rem; }
+.hero .places span { font-variant-numeric: tabular-nums; color: var(--muted); }
+@media (max-width: 820px) { .hero > .wrap { padding-block: 48px 64px; } .hero h1 { grid-column: 1 / -1; } }
+
+.statement { font-size: clamp(1.25rem, 2.2vw, 1.75rem); line-height: 1.4; letter-spacing: -0.01em; max-width: 30em; }
+.statement + .statement { margin-top: 1em; }
+.body-text { color: var(--muted); max-width: 38em; margin-top: 24px; }
+
+/* Essays index */
+.index { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.index li { border-bottom: 1px solid var(--rule); }
+.index a, .index .row {
+  display: grid; grid-template-columns: 3rem minmax(0, 1fr) 9rem; gap: 16px; padding-block: 16px; align-items: baseline;
+}
+.index .no { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.index .t { font-size: 1.12rem; }
+.index .d { font-size: 0.85rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.index a .t::after { content: " →"; color: var(--muted); }
+.index .row { color: var(--ink); }
+.index .row .t { color: var(--muted); }
+@media (max-width: 600px) { .index a, .index .row { grid-template-columns: 2rem minmax(0, 1fr); } .index .d { grid-column: 2; text-align: left; } }
+
+/* Reviews: plates with captions */
+.plates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.plate { display: grid; gap: 12px; }
+.plate .img { aspect-ratio: 4 / 5; max-width: 100%; background: var(--plate); display: grid; place-items: center; color: var(--plate-ink); font-size: 0.8rem; }
+.plate .ttl { font-size: 0.95rem; }
+@media (max-width: 820px) { .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); } .plate:last-child { display: none; } }
+
+/* Programs */
+.programs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 24px; }
+.program { display: grid; gap: 10px; align-content: start; }
+.program h3 { font-size: 1.5rem; }
+.program p { color: var(--muted); max-width: 30em; }
+form.signup { display: flex; gap: 0; border-bottom: 1px solid var(--ink); margin-top: 12px; max-width: 26rem; }
+form.signup input { flex: 1; min-width: 0; font: inherit; padding: 10px 0; border: 0; background: transparent; color: var(--ink); }
+form.signup input::placeholder { color: var(--muted); }
+form.signup button { font: inherit; font-weight: 500; background: none; border: 0; padding: 10px 0 10px 16px; color: var(--ink); cursor: pointer; }
+.form-note { font-size: 0.85rem; color: var(--muted); min-height: 1.4em; }
+@media (max-width: 820px) { .programs { grid-template-columns: 1fr; gap: 40px; } }
+
+/* Locations */
+.locations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.loc { border-top: 1px solid var(--ink); padding-top: 16px; display: grid; gap: 6px; align-content: start; }
+.loc h3 { font-size: 1.5rem; }
+.loc .time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.9rem; }
+.loc p { color: var(--muted); }
+@media (max-width: 600px) { .locations { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Essay reader */
+.reader > .wrap { padding-block: 56px 96px; }
+.reader .back { grid-column: 1 / -1; font-size: 0.92rem; color: var(--muted); }
+.reader .meta { grid-column: 1 / 4; display: grid; gap: 4px; align-content: start; font-size: 0.85rem; color: var(--muted); }
+.reader article { grid-column: 4 / 11; min-width: 0; }
+.reader h1 { font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.05; letter-spacing: -0.03em; }
+.reader .stand { font-size: 1.25rem; line-height: 1.45; margin-top: 28px; }
+.reader .prose { margin-top: 40px; display: grid; gap: 1.2em; max-width: 36em; font-size: 1.05rem; line-height: 1.75; }
+.reader .prose h2 { font-size: 1.2rem; margin-top: 1em; }
+.reader .note { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 0.9rem; color: var(--muted); }
+@media (max-width: 820px) { .reader .meta, .reader article { grid-column: 1 / -1; } .reader .meta { order: 2; } }
+
+/* People */
+.founder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 32px; align-items: start; }
+.founder .portrait { font-size: 4rem; font-weight: 500; color: var(--plate-ink); }
+.founder-text { display: grid; gap: 6px; }
+.founder-text h3 { font-size: 1.75rem; }
+.founder-text .body-text { margin-top: 12px; }
+@media (max-width: 600px) { .founder { grid-template-columns: 1fr; } .founder .plate { max-width: 220px; } }
+
+footer { border-top: 1px solid var(--rule); }
+footer .wrap.foot { padding-block: 40px 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; font-size: 0.85rem; color: var(--muted); }
+.foot-name { grid-column: 1 / 4; display: grid; gap: 2px; }
+.foot-name strong { color: var(--ink); font-weight: 600; font-size: 0.95rem; }
+.foot-links { grid-column: 4 / 7; display: grid; gap: 6px; align-content: start; }
+.foot-legal { grid-column: 7 / 13; max-width: 34em; line-height: 1.6; }
+@media (max-width: 820px) { .foot-name, .foot-links, .foot-legal { grid-column: 1 / -1; } }
+#programs .programs .program:nth-child(3) { grid-column: 1 / -1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .view { animation: fade 0.4s ease both; }
+  @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
+}
+</style>
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="wordmark" href="#top">In Common <span style="font-weight:400;color:var(--muted)"><span lang="en">Art, Law and Technology Center</span><span lang="ko">예술·법·기술 센터</span></span></a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav"><span lang="en">Menu</span><span lang="ko">메뉴</span></button>
+    <nav class="links" id="nav" aria-label="Main">
+      <a href="#about"><span lang="en">About</span><span lang="ko">소개</span></a>
+      <a href="#articles"><span lang="en">Articles</span><span lang="ko">글</span></a>
+      <a href="#reviews"><span lang="en">Reviews</span><span lang="ko">전시 리뷰</span></a>
+      <a href="#programs"><span lang="en">Programs</span><span lang="ko">프로그램</span></a>
+      <a href="#people"><span lang="en">People</span><span lang="ko">사람들</span></a>
+      <a href="#involved"><span lang="en">Get involved</span><span lang="ko">참여하기</span></a>
+      <a href="#visit" hidden><span lang="en">Locations</span><span lang="ko">장소</span></a>
+      <span class="lang" role="group" aria-label="Language">
+        <button type="button" id="btn-en" aria-pressed="true">EN</button><span>/</span><button type="button" id="btn-ko" aria-pressed="false">한국어</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main id="home" class="view">
+  <section class="hero" id="top">
+    <div class="wrap">
+      <h1>
+        <span lang="en">Where law and art intersect,<br>to serve creativity.</span>
+        <span lang="ko">법과 예술이 만나는 곳,<br>창작을 위하여.</span>
+      </h1>
+      <div class="places"><span>New York&ensp;<span id="t-nyc">--:--</span></span><span>Seoul&ensp;<span id="t-sel">--:--</span></span></div>
+    </div>
+  </section>
+
+  <section id="next">
+    <div class="wrap">
+      <h2 class="sec-name"><span lang="en">Coming up</span><span lang="ko">다음 소식</span></h2>
+      <div class="sec-body"><ol class="index" id="upcoming"></ol></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <h2 class="sec-name"><span lang="en">About</span><span lang="ko">소개</span></h2>
+      <div class="sec-body">
+        <p class="statement" lang="en">In Common is an art, law and technology center. It publishes articles, reviews and conversations on the questions where creative work, the law and new technology meet.</p>
+        <p class="statement" lang="ko">In Common은 예술·법·기술 센터입니다. 창작과 법, 새로운 기술이 만나는 질문에 대한 글과 리뷰, 대화를 발표합니다.</p>
+        <p class="body-text" lang="en">Our writing appears in English and Korean. We look at how different legal systems answer the same questions about authorship, ownership and new machines, and we bring lawyers and artists together to keep those conversations going. The center is based in New York and Seoul.</p>
+        <p class="body-text" lang="ko">모든 글은 영어와 한국어로 발표됩니다. 저작권, 소유권, 새로운 기술에 관한 같은 질문에 여러 법체계가 어떻게 답하는지 살펴보고, 변호사와 예술가가 함께 대화를 이어갈 수 있도록 연결합니다. 센터는 뉴욕과 서울을 기반으로 합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="articles">
+    <div class="wrap">
+      <div class="sec-name">
+        <h2 style="font-size:inherit"><span lang="en">Articles</span><span lang="ko">글</span></h2>
+        <p class="cap" style="margin-top:6px"><span lang="en">2026–27 series</span><span lang="ko">2026–27 시리즈</span></p>
+      </div>
+      <div class="sec-body">
+        <ol class="index" id="index"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="sec-name">
+        <h2 style="font-size:inherit"><span lang="en">Exhibition reviews</span><span lang="ko">전시 리뷰</span></h2>
+        <p class="cap" style="margin-top:6px">New York</p>
+      </div>
+      <div class="sec-body">
+        <div class="plates">
+          <div class="plate"><div class="img"><span lang="en">Forthcoming</span><span lang="ko">공개 예정</span></div><p class="ttl"><span lang="en">Review 1</span><span lang="ko">리뷰 1</span></p><p class="cap"><span lang="en">Exhibition, gallery, dates</span><span lang="ko">전시명, 갤러리, 기간</span></p></div>
+          <div class="plate"><div class="img"><span lang="en">Forthcoming</span><span lang="ko">공개 예정</span></div><p class="ttl"><span lang="en">Review 2</span><span lang="ko">리뷰 2</span></p><p class="cap"><span lang="en">Exhibition, gallery, dates</span><span lang="ko">전시명, 갤러리, 기간</span></p></div>
+          <div class="plate"><div class="img"><span lang="en">Forthcoming</span><span lang="ko">공개 예정</span></div><p class="ttl"><span lang="en">Review 3</span><span lang="ko">리뷰 3</span></p><p class="cap"><span lang="en">Exhibition, gallery, dates</span><span lang="ko">전시명, 갤러리, 기간</span></p></div>
+        </div>
+        <p class="body-text" lang="en">Reviews of New York exhibitions, read for the questions of rights, provenance and technology behind the work.</p>
+        <p class="body-text" lang="ko">뉴욕 전시를 작품 뒤에 있는 권리, 출처, 기술의 질문으로 읽는 리뷰입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs">
+    <div class="wrap">
+      <h2 class="sec-name"><span lang="en">Programs</span><span lang="ko">프로그램</span></h2>
+      <div class="sec-body programs">
+        <div class="program">
+          <p class="cap"><span lang="en">Newsletter</span><span lang="ko">뉴스레터</span></p>
+          <h3><span lang="en">Monthly letter</span><span lang="ko">월간 레터</span></h3>
+          <p lang="en">Each month's article, an exhibition review, and notes on what changed in art law.</p>
+          <p lang="ko">매달의 글과 전시 리뷰, 그리고 예술법의 새로운 소식을 전합니다.</p>
+          <form class="signup" id="signup" novalidate>
+            <label for="email" class="cap" style="position:absolute;left:-9999px">Email address</label>
+            <input id="email" name="email" type="email" placeholder="Email address" autocomplete="email">
+            <button type="submit"><span lang="en">Subscribe</span><span lang="ko">구독</span></button>
+          </form>
+          <p class="form-note" id="form-note" role="status"></p>
+        </div>
+        <div class="program">
+          <p class="cap"><span lang="en">Podcast · Coming soon</span><span lang="ko">팟캐스트 · 준비 중</span></p>
+          <h3><span lang="en">Conversations</span><span lang="ko">대화</span></h3>
+          <p lang="en">A lawyer and an artist talk through the question behind each article.</p>
+          <p lang="ko">매달 한 명의 변호사와 한 명의 예술가가 글의 질문을 함께 이야기합니다.</p>
+        </div>
+        <div class="program">
+          <p class="cap"><span lang="en">Community</span><span lang="ko">커뮤니티</span></p>
+          <h3><span lang="en">Monthly salon</span><span lang="ko">월간 살롱</span></h3>
+          <p lang="en">An open online conversation on each month's topic, for lawyers, artists, collectors and anyone curious.</p>
+          <p lang="ko">매달의 주제로 열리는 온라인 대화. 변호사, 예술가, 컬렉터, 관심 있는 누구나 참여할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="involved">
+    <div class="wrap">
+      <h2 class="sec-name"><span lang="en">Get involved</span><span lang="ko">참여하기</span></h2>
+      <div class="sec-body programs">
+        <div class="program">
+          <h3><span lang="en">Subscribe</span><span lang="ko">구독</span></h3>
+          <p lang="en">Get each month's article and review by email. <a href="#programs" style="text-decoration:underline">Sign up</a></p>
+          <p lang="ko">매달의 글과 리뷰를 이메일로 받아보세요. <a href="#programs" style="text-decoration:underline">구독하기</a></p>
+        </div>
+        <div class="program">
+          <h3><span lang="en">Write with us</span><span lang="ko">함께 쓰기</span></h3>
+          <p lang="en">Lawyers, artists and students can pitch an article or suggest an exhibition for review.</p>
+          <p lang="ko">변호사, 예술가, 학생 누구나 글을 제안하거나 리뷰할 전시를 추천할 수 있습니다.</p>
+        </div>
+        <div class="program">
+          <h3><span lang="en">Join the salon</span><span lang="ko">살롱 참여</span></h3>
+          <p lang="en">A monthly online conversation on each article's topic, open to anyone curious.</p>
+          <p lang="ko">매달 글의 주제로 열리는 온라인 대화에 누구나 참여할 수 있습니다.</p>
+        </div>
+        <div class="program">
+          <h3><span lang="en">Partner with us</span><span lang="ko">협력하기</span></h3>
+          <p lang="en">Galleries, museums, law firms and schools can work with us on events, research and residencies.</p>
+          <p lang="ko">갤러리, 미술관, 로펌, 학교와 함께 행사, 연구, 레지던시를 만듭니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" hidden>
+    <div class="wrap">
+      <h2 class="sec-name"><span lang="en">Locations</span><span lang="ko">장소</span></h2>
+      <div class="sec-body">
+        <div class="locations">
+          <div class="loc">
+            <h3>New York</h3>
+            <span class="time" id="d-nyc"></span>
+            <p lang="en">Studios, gallery and library. Planned.</p>
+            <p lang="ko">작업실, 갤러리, 도서관. 계획 중.</p>
+          </div>
+          <div class="loc">
+            <h3><span lang="en">Seoul</span><span lang="ko">서울</span></h3>
+            <span class="time" id="d-sel"></span>
+            <p lang="en">Studios, gallery and library. Planned.</p>
+            <p lang="ko">작업실, 갤러리, 도서관. 계획 중.</p>
+          </div>
+        </div>
+        <p class="body-text" lang="en">In time the center will open physical spaces that lend studios to artists, host exhibitions and keep a library on art and law.</p>
+        <p class="body-text" lang="ko">앞으로 센터는 예술가에게 작업실을 제공하고, 전시를 열고, 예술과 법에 관한 도서관을 운영하는 공간을 열 계획입니다.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="reader" class="view reader" hidden>
+  <section style="border-top:0">
+    <div class="wrap">
+      <a class="back" href="#articles">← <span lang="en">All articles</span><span lang="ko">전체 글</span></a>
+      <aside class="meta" id="r-meta"></aside>
+      <article>
+        <h1 id="r-title"></h1>
+        <p class="stand" id="r-stand"></p>
+        <div class="prose" id="r-prose"></div>
+        <p class="note" id="r-note"></p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<main id="people" class="view" hidden>
+  <section class="hero">
+    <div class="wrap">
+      <h1><span lang="en">Meet the founder and board</span><span lang="ko">설립자와 이사회</span></h1>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <h2 class="sec-name"><span lang="en">Founder</span><span lang="ko">설립자</span></h2>
+      <div class="sec-body founder">
+        <div class="plate"><div class="img portrait">H</div></div>
+        <div class="founder-text">
+          <h3>Hwa</h3>
+          <p class="cap"><span lang="en">Founder and editor</span><span lang="ko">설립자 겸 편집장</span></p>
+          <p class="body-text" lang="en">Hwa founded In Common to bring lawyers and artists together around the questions where law, art and technology meet. Hwa writes the center's monthly articles in English and Korean.</p>
+          <p class="body-text" lang="ko">법과 예술, 기술이 만나는 질문을 중심으로 변호사와 예술가를 잇기 위해 In Common을 설립했습니다. 센터의 월간 글을 영어와 한국어로 쓰고 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <h2 class="sec-name"><span lang="en">Board</span><span lang="ko">이사회</span></h2>
+      <div class="sec-body">
+        <div class="plates">
+          <div class="plate"><div class="img"><span lang="en">To be announced</span><span lang="ko">발표 예정</span></div><p class="ttl"><span lang="en">Board member</span><span lang="ko">이사</span></p><p class="cap"><span lang="en">Name, title</span><span lang="ko">이름, 직함</span></p></div>
+          <div class="plate"><div class="img"><span lang="en">To be announced</span><span lang="ko">발표 예정</span></div><p class="ttl"><span lang="en">Board member</span><span lang="ko">이사</span></p><p class="cap"><span lang="en">Name, title</span><span lang="ko">이름, 직함</span></p></div>
+          <div class="plate"><div class="img"><span lang="en">To be announced</span><span lang="ko">발표 예정</span></div><p class="ttl"><span lang="en">Board member</span><span lang="ko">이사</span></p><p class="cap"><span lang="en">Name, title</span><span lang="ko">이름, 직함</span></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-name">
+      <strong>In Common</strong>
+      <span><span lang="en">Art, Law and Technology Center</span><span lang="ko">예술·법·기술 센터</span></span>
+      <span>New York · Seoul</span>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#about"><span lang="en">About</span><span lang="ko">소개</span></a>
+      <a href="#articles"><span lang="en">Articles</span><span lang="ko">글</span></a>
+      <a href="#people"><span lang="en">People</span><span lang="ko">사람들</span></a>
+      <a href="#involved"><span lang="en">Get involved</span><span lang="ko">참여하기</span></a>
+      <a href="#programs"><span lang="en">Newsletter</span><span lang="ko">뉴스레터</span></a>
+    </nav>
+    <p class="foot-legal" lang="en">In Common publishes for education and discussion. Nothing on this site is legal advice, and In Common does not provide legal representation.<br>© 2026 In Common</p>
+    <p class="foot-legal" lang="ko">In Common의 콘텐츠는 교육과 토론을 위한 것이며 법률 자문이 아닙니다. In Common은 법률 대리를 제공하지 않습니다.<br>© 2026 In Common</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* Essay series: titles and dates from the series plan. Full text goes in `body` when an essay is published. */
+  var essays = [
+    { date: "2026-11-10", en: "Flying cars: who clears the sky?", ko: "하늘을 나는 자동차, 누가 하늘길을 여는가",
+      standEn: "A vehicle that drives and flies answers to two sets of rules at once. This article asks who certifies, licenses and polices it, and how different countries are drawing that line.",
+      standKo: "도로를 달리고 하늘을 나는 차는 두 가지 규칙을 동시에 따른다. 누가 인증하고, 허가하고, 관리하는지, 그리고 각국이 그 경계를 어떻게 긋고 있는지 살펴본다." },
+    { date: "2026-12-08", en: "Who owns AI art?", ko: "AI 예술은 누구의 것인가" },
+    { date: "2027-01-12", en: "Trained on my paintings", ko: "내 그림으로 학습했다" },
+    { date: "2027-02-09", en: "Deepfakes and the artist's persona", ko: "딥페이크와 예술가의 초상" },
+    { date: "2027-03-09", en: "Resale royalties", ko: "추급권, 다시 팔릴 때 작가의 몫" },
+    { date: "2027-04-13", en: "Selling a slice of a Basquiat", ko: "바스키아 한 조각을 팝니다" },
+    { date: "2027-05-11", en: "NFTs after the hype", ko: "열풍 이후의 NFT" },
+    { date: "2027-06-08", en: "Fakes, forgers and algorithms", ko: "위작, 위조범, 그리고 알고리즘" },
+    { date: "2027-07-13", en: "Can you destroy a mural?", ko: "벽화를 파괴할 수 있는가" },
+    { date: "2027-08-31", en: "Following the money", ko: "미술 시장의 돈을 따라가다" },
+    { date: "2027-09-14", en: "Registering open-source code", ko: "오픈소스 코드를 등록하다" },
+    { date: "2027-10-12", en: "Repatriation and the Met", ko: "문화재 반환과 메트로폴리탄 미술관" }
+  ];
+
+  function fmtDate(iso, ko) {
+    var p = iso.split("-").map(Number);
+    if (ko) return p[0] + "년 " + p[1] + "월 " + p[2] + "일";
+    var m = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    return p[2] + " " + m[p[1] - 1] + " " + p[0];
+  }
+  function bi(en, ko) { return '<span lang="en">' + en + '</span><span lang="ko">' + ko + '</span>'; }
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+
+  var list = document.getElementById("index");
+  list.innerHTML = essays.map(function (e, i) {
+    var inner = '<span class="no">' + pad(i + 1) + '</span><span class="t">' + bi(e.en, e.ko) + '</span><span class="d">' + bi(fmtDate(e.date), fmtDate(e.date, true)) + '</span>';
+    return e.standEn ? '<li><a href="#article-' + pad(i + 1) + '">' + inner + '</a></li>' : '<li><div class="row">' + inner + '</div></li>';
+  }).join("");
+
+  /* Coming up: the next three scheduled articles */
+  var today = new Date().toISOString().slice(0, 10);
+  var next = essays.map(function (e, i) { return { e: e, i: i }; }).filter(function (x) { return x.e.date >= today; }).slice(0, 3);
+  document.getElementById("upcoming").innerHTML = next.map(function (x) {
+    var inner = '<span class="no">' + pad(x.i + 1) + '</span><span class="t">' + bi(x.e.en, x.e.ko) + '</span><span class="d">' + bi(fmtDate(x.e.date), fmtDate(x.e.date, true)) + '</span>';
+    return x.e.standEn ? '<li><a href="#article-' + pad(x.i + 1) + '">' + inner + '</a></li>' : '<li><div class="row">' + inner + '</div></li>';
+  }).join("");
+  if (!next.length) document.getElementById("next").hidden = true;
+
+  /* Views */
+  var home = document.getElementById("home"), reader = document.getElementById("reader"), people = document.getElementById("people");
+  function route() {
+    var h = (location.hash || "").slice(1);
+    var m = /^article-(\d\d)$/.exec(h);
+    var e = m && essays[Number(m[1]) - 1];
+    if (e && e.standEn) {
+      document.getElementById("r-title").innerHTML = bi(e.en, e.ko);
+      document.getElementById("r-stand").innerHTML = bi(e.standEn, e.standKo);
+      document.getElementById("r-meta").innerHTML =
+        '<span>' + bi("Article " + m[1], "글 " + m[1]) + '</span><span>' + bi(fmtDate(e.date), fmtDate(e.date, true)) + '</span><span>' + bi("English · Korean", "영어 · 한국어") + '</span>';
+      document.getElementById("r-prose").innerHTML = e.body || "";
+      document.getElementById("r-note").innerHTML = e.body ? "" : bi("The full article will be published here on " + fmtDate(e.date) + ".", "전문은 " + fmtDate(e.date, true) + "에 이곳에 공개됩니다.");
+      home.hidden = true; people.hidden = true; reader.hidden = false; window.scrollTo(0, 0);
+    } else if (h === "people") {
+      home.hidden = true; reader.hidden = true; people.hidden = false; window.scrollTo(0, 0);
+    } else {
+      reader.hidden = true; people.hidden = true; home.hidden = false;
+      var t = h && document.getElementById(h);
+      if (t) t.scrollIntoView();
+    }
+    nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false");
+  }
+
+  /* Menu */
+  var nav = document.getElementById("nav"), menuBtn = document.getElementById("menu-btn");
+  menuBtn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  /* Language */
+  function setLang(l) {
+    root.classList.toggle("lang-ko", l === "ko");
+    root.setAttribute("lang", l);
+    document.getElementById("btn-en").setAttribute("aria-pressed", l === "en");
+    document.getElementById("btn-ko").setAttribute("aria-pressed", l === "ko");
+    try { localStorage.setItem("lang", l); } catch (err) {}
+    tick();
+  }
+  document.getElementById("btn-en").addEventListener("click", function () { setLang("en"); });
+  document.getElementById("btn-ko").addEventListener("click", function () { setLang("ko"); });
+
+  /* Clocks */
+  function fmt(tz, opts, loc) {
+    try { return new Intl.DateTimeFormat(loc || "en-US", Object.assign({ timeZone: tz }, opts)).format(new Date()); } catch (err) { return ""; }
+  }
+  function tick() {
+    var ko = root.classList.contains("lang-ko"), loc = ko ? "ko-KR" : "en-US";
+    var t = { hour: "2-digit", minute: "2-digit", hour12: false };
+    var d = { weekday: "long", hour: "2-digit", minute: "2-digit", hour12: false };
+    document.getElementById("t-nyc").textContent = fmt("America/New_York", t);
+    document.getElementById("t-sel").textContent = fmt("Asia/Seoul", t);
+    document.getElementById("d-nyc").textContent = fmt("America/New_York", d, loc);
+    document.getElementById("d-sel").textContent = fmt("Asia/Seoul", d, loc);
+  }
+
+  /* Newsletter */
+  document.getElementById("signup").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var v = document.getElementById("email").value.trim(), note = document.getElementById("form-note");
+    var ko = root.classList.contains("lang-ko");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { note.textContent = ko ? "name@example.com 형식의 이메일 주소를 입력하세요." : "Enter an email address like name@example.com."; return; }
+    note.textContent = ko ? "감사합니다. 구독은 첫 호와 함께 시작되며, 아직 주소는 저장되지 않았습니다." : "Thank you. Subscriptions open with the first issue, so this address was not saved yet.";
+  });
+
+  var saved = "en";
+  try { saved = localStorage.getItem("lang") || "en"; } catch (err) {}
+  setLang(saved);
+  setInterval(tick, 30000);
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+
+</body>
+</html>
