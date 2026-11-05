@@ -9,7 +9,7 @@
 <title>In Common</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=DM+Sans:wght@400;500;600&family=Noto+Serif+KR:wght@400;500;600&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 /* Layout: a small magazine. Serif masthead, one 3:2 "cover" plate per feature, cards with label / title / dek / link, thin rules, lots of white.
    Single light theme on purpose: printed-page white with pigment plates. */
@@ -23,11 +23,11 @@
   --sage: #BFCDB8;
   --sky: #C9D6E8;
   --cream: #F3EFE4;
-  --serif: "Newsreader", "Noto Serif KR", Georgia, serif;
-  --sans: "DM Sans", "Noto Sans KR", "Helvetica Neue", Arial, sans-serif;
+  /* English in Helvetica; Hangul has no glyphs there, so it falls through to Nanum Myeongjo. */
+  --serif: "Helvetica Neue", Helvetica, Arial, "Nanum Myeongjo", serif;
+  --sans: "Helvetica Neue", Helvetica, Arial, "Nanum Myeongjo", serif;
   color-scheme: light;
 }
-:root.lang-ko { --serif: "Noto Serif KR", "Newsreader", Georgia, serif; --sans: "Noto Sans KR", "DM Sans", Arial, sans-serif; }
 :root:not(.lang-ko) [lang="ko"] { display: none !important; }
 :root.lang-ko [lang="en"] { display: none !important; }
 :root.lang-ko body { word-break: keep-all; }
@@ -128,7 +128,7 @@ section.block > .wrap { padding-block: 56px 80px; display: grid; grid-template-c
 
 /* Founder */
 .founder { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 40px; align-items: start; }
-.portrait { aspect-ratio: 4 / 5; max-width: 100%; background: var(--sky); display: grid; place-items: center; font: 300 96px/1 "Newsreader", Georgia, serif; color: var(--blue); }
+.portrait { aspect-ratio: 4 / 5; max-width: 100%; background: var(--sky); display: grid; place-items: center; font: 300 96px/1 var(--serif); color: var(--blue); }
 .founder .name { font: 500 20px/1.5 var(--sans); }
 .founder .name span { display: block; }
 .founder .role { margin-top: 6px; }
@@ -184,7 +184,6 @@ footer .wrap { padding-block: 40px 48px; display: grid; grid-template-columns: m
           <circle cx="250" cy="200" r="120" fill="none" stroke="var(--cream)" stroke-width="2"/>
           <circle cx="350" cy="200" r="120" fill="none" stroke="var(--cream)" stroke-width="2"/>
         </svg>
-        <figcaption class="cap"><span lang="en">A ∩ B: what two fields share.</span><span lang="ko">A ∩ B, 두 분야가 함께 가진 것.</span></figcaption>
       </figure>
       <div class="cover-copy">
         <p class="label"><span lang="en">Est. 2026</span><span lang="ko">2026년 설립</span></p>
