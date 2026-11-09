@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="In Common: Arts, Law and Technology Center in New York and Seoul. Research, articles and conversations on art law and technology law.">
-<meta name="theme-color" content="#f8f7f3">
+<meta name="theme-color" content="#fcf8f2">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://incommoncenter.org/">
 <meta property="og:type" content="website">
@@ -19,200 +19,252 @@
 <title>In Common</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
-/* Layout: an editorial magazine in the manner of Works in Progress. Serif masthead and headlines, small sans labels,
-   a large riso-print illustration leading each feature (img/*.webp, drawn by art/gen.py), thin rules, lots of white.
-   Single light theme on purpose: printed-page paper with ink illustrations. */
+/* Layout: a printed magazine on screen, in the manner of Works in Progress (design by And-Now).
+   Their web fonts are Editor (reading) and GT America Mono (secondary information); both are commercial,
+   so the open equivalents here are Newsreader (optical sizes 6-72) and DM Mono.
+   Hangul has no glyphs in either, so it falls through to Nanum Myeongjo (serif) and Nanum Gothic Coding (mono).
+   Riso-print illustrations lead each feature (img/*.webp, drawn by art/gen.py). Single light theme on purpose:
+   warm paper and ink, like the printed issue. */
 :root {
-  --paper: #FBFAF6;
-  --ink: #141414;
-  --muted: #66655F;
-  --rule: #E2E0D8;
-  --cream: #F3EEE2;
-  /* Latin in Source Serif 4; Hangul has no glyphs there, so it falls through to Nanum Myeongjo. */
-  --serif: "Source Serif 4", "Nanum Myeongjo", Georgia, serif;
-  --sans: "Helvetica Neue", Helvetica, Arial, "Nanum Myeongjo", sans-serif;
+  --paper: #FCF8F2;
+  --wash: #F4ECE0;
+  --ink: #1A1917;
+  --ink-2: #3A3834;
+  --muted: #77726A;
+  --rule: #E3DACD;
+  --serif: "Newsreader", "Nanum Myeongjo", Georgia, serif;
+  --mono: "DM Mono", "Nanum Gothic Coding", ui-monospace, Menlo, monospace;
+  --pad: 32px;
   color-scheme: light;
 }
+@media (max-width: 700px) { :root { --pad: 20px; } }
 :root:not(.lang-ko) [lang="ko"] { display: none !important; }
 :root.lang-ko [lang="en"] { display: none !important; }
-:root.lang-ko body { word-break: keep-all; }
+:root.lang-ko body { word-break: keep-all; line-height: 1.78; }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 84px; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 400 11.5pt/1.62 var(--serif); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-kerning: normal; font-variant-numeric: oldstyle-nums proportional-nums; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--serif); font-optical-sizing: auto; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-kerning: normal; font-variant-numeric: oldstyle-nums proportional-nums; }
 p { text-wrap: pretty; hanging-punctuation: first; }
 ::selection { background: #FFE800; color: var(--ink); }
-.skip { position: absolute; left: max(16px, env(safe-area-inset-left, 0px)); top: -60px; z-index: 20; background: var(--ink); color: var(--paper); padding: 10px 14px; font: 500 14px/1 var(--sans); }
-.skip:focus { top: calc(env(safe-area-inset-top, 0px) + 10px); }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, p { margin: 0; }
-h1, h2, h3 { font-weight: 400; text-wrap: balance; }
+h1, h2, h3 { font-weight: 400; text-wrap: balance; font-variant-numeric: lining-nums; }
 button, input { font: inherit; }
 img { display: block; max-width: 100%; height: auto; }
 a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+.skip { position: absolute; left: var(--pad); top: -60px; z-index: 20; background: var(--ink); color: var(--paper); padding: 10px 14px; font: 400 13px/1 var(--mono); }
+.skip:focus { top: calc(env(safe-area-inset-top, 0px) + 10px); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-.wrap { width: min(100%, 1280px); margin-inline: auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
-@media (max-width: 600px) { .wrap { padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); } }
-.label { font: 500 13px/1.4 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-variant-numeric: lining-nums; }
-.more { font: 500 14px/1 var(--sans); display: inline-flex; gap: .5em; align-items: center; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
-.more:hover { gap: .8em; transition: gap .2s; }
-.art { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--cream); }
+.wrap { width: min(100%, 1312px); margin-inline: auto; padding-left: max(var(--pad), env(safe-area-inset-left, 0px)); padding-right: max(var(--pad), env(safe-area-inset-right, 0px)); }
 
-/* Header */
-.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); border-bottom: 1px solid var(--rule); }
+/* Secondary information is set in mono: kickers, bylines, dates, buttons */
+.kicker { font: 400 12px/1.45 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); font-variant-numeric: lining-nums; }
+:root.lang-ko .kicker { letter-spacing: .02em; font-size: 12.5px; }
+.byline { font: 400 12px/1.45 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.byline b { font-weight: 400; color: var(--ink); }
+:root.lang-ko .byline { letter-spacing: 0; font-size: 12.5px; }
+.more { display: inline-flex; align-items: center; gap: .55em; font: 400 12px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink); padding-bottom: 5px; border-bottom: 1px solid currentColor; }
+.more .arr { transition: transform .2s ease; }
+.more:hover .arr { transform: translateX(4px); }
+.more .arr.back { order: -1; }
+.more:hover .arr.back { transform: translateX(-4px); }
+:root.lang-ko .more { letter-spacing: .02em; font-size: 12.5px; }
+.art { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--wash); }
+.orn { display: block; width: 96px; height: 13px; color: var(--ink); margin-inline: auto; }
+
+/* Header: wordmark centred, navigation split either side, mono capitals */
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); border-bottom: 1px solid var(--ink); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 11; background: var(--paper); }
-.topbar .wrap { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.home { display: inline-flex; align-items: center; gap: 10px; font: 600 15px/1 var(--sans); letter-spacing: .14em; }
-.home svg { width: 16px; height: 20px; }
-.home path { fill: none; stroke: currentColor; }
-.nav { display: flex; align-items: center; gap: 28px; font: 400 15px/1 var(--sans); }
-.nav > a { position: relative; padding-block: 6px; }
-.nav > a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
-.nav > a:hover::after, .nav > a:focus-visible::after { transform: scaleX(1); }
+.bar { position: relative; min-height: 60px; display: flex; align-items: center; }
+.home { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: 400 27px/1 var(--serif); letter-spacing: -.02em; white-space: nowrap; transition: opacity .25s ease, visibility .25s; }
+.nav { flex: 1; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.nav-l, .nav-r { display: flex; align-items: center; gap: 26px; }
+.nav a:not(.sub) { font: 400 12.5px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; padding-block: 8px; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .25s ease; }
+.nav a:not(.sub):hover { background-size: 100% 1px; }
+:root.lang-ko .nav a:not(.sub) { letter-spacing: .02em; font-size: 13px; }
 .lang { display: flex; gap: 10px; align-items: center; padding-left: 22px; border-left: 1px solid var(--rule); }
-.lang button { border: 0; background: none; padding: 4px 0; color: var(--muted); font: 500 13px/1 var(--sans); letter-spacing: .06em; cursor: pointer; }
-.lang button[aria-pressed="true"] { color: var(--ink); }
+.lang button { border: 0; background: none; padding: 6px 0; color: var(--muted); font: 400 12.5px/1 var(--mono); letter-spacing: .04em; cursor: pointer; }
+.lang button[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.sub { font: 400 12px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 10px 14px; transition: background .2s; }
+.sub:hover { background: #45423C; }
+:root.lang-ko .sub { letter-spacing: .02em; font-size: 12.5px; }
+.menu-btn { display: none; margin-left: auto; border: 0; background: none; padding: 8px 0; cursor: pointer; color: var(--ink); font: 400 12.5px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
 .menu-btn .m-open, .menu-btn[aria-expanded="true"] .m-closed { display: none; }
 .menu-btn[aria-expanded="true"] .m-open { display: inline; }
-.menu-btn { display: none; border: 0; background: none; font: 500 14px/1 var(--sans); letter-spacing: .06em; padding: 8px 0; cursor: pointer; color: var(--ink); }
-@media (max-width: 860px) {
-  .topbar .wrap { flex-wrap: wrap; min-height: 58px; }
+@media (min-width: 1081px) { :root.mast-in .topbar .home { opacity: 0; visibility: hidden; } }
+@media (max-width: 1080px) {
+  .bar { flex-wrap: wrap; min-height: 56px; }
+  .home { position: static; transform: none; font-size: 25px; padding-block: 14px; }
   .menu-btn { display: block; }
-  .nav { display: none; flex: 0 0 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 4px 0 24px; font: 400 26px/1.15 var(--serif); }
-  .nav > a { padding-block: 12px; border-bottom: 1px solid var(--rule); }
-  .nav > a::after { display: none; }
-  .lang { padding-top: 18px; }
+  .nav { display: none; flex: 0 0 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 0 0 28px; }
   .nav.open { display: flex; }
-  .lang { border-left: 0; padding-left: 0; }
-  .lang button { font-size: 15px; }
+  .nav-l, .nav-r { flex-direction: column; align-items: stretch; gap: 0; }
+  .nav a:not(.sub) { font: 400 26px/1.15 var(--serif) !important; letter-spacing: -.01em !important; text-transform: none; padding-block: 14px; border-top: 1px solid var(--rule); background: none; }
+  .lang { border-left: 0; padding: 18px 0 0; border-top: 1px solid var(--rule); }
+  .lang button { font-size: 14px; }
+  .sub { margin-top: 18px; text-align: center; padding: 15px; font-size: 13px; }
 }
 
 /* Masthead */
-.masthead { text-align: center; padding-block: 36px 22px; border-bottom: 1px solid var(--ink); }
-.masthead h1 { font: 400 clamp(52px, 7.6vw, 96px)/.95 var(--serif); letter-spacing: -.035em; font-variant-numeric: lining-nums; }
-.masthead p { margin-top: 14px; }
-.mast-sub .nw { white-space: nowrap; }
-.mast-sub .sep { margin-inline: .9em; }
-@media (max-width: 600px) { .mast-sub .nw { display: block; } .mast-sub .sep { display: none; } }
+.masthead { padding-top: 34px; text-align: center; }
+.mast-title { font: 400 clamp(68px, 10.2vw, 140px)/.9 var(--serif); letter-spacing: -.035em; padding-bottom: 26px; }
+.dateline { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; padding-block: 11px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
+.dateline > :first-child { text-align: left; }
+.dateline > :last-child { text-align: right; }
+@media (max-width: 1080px) { .masthead { padding-top: 0; } .mast-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; padding: 0; } .dateline { border-top: 0; } }
+@media (max-width: 700px) { .dateline { grid-template-columns: 1fr auto; } .dateline > :nth-child(2) { display: none; } }
 
-/* Lead story */
-.lead-story { padding-block: 32px 72px; display: grid; gap: 28px; }
-.lead-story .art { aspect-ratio: 12 / 5; object-position: 50% 78%; }
-.lead-text { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
-.lead-text h2 { font: 400 clamp(34px, 4.4vw, 58px)/1.03 var(--serif); letter-spacing: -.025em; margin-top: 10px; }
-.dek { font-size: 13pt; line-height: 1.55; color: #33332F; }
-.lead-text .more { margin-top: 22px; }
-@media (max-width: 860px) { .lead-story { padding-block: 22px 52px; gap: 20px; } .lead-story .art { aspect-ratio: 4 / 3; object-position: 42% 50%; } .lead-text { grid-template-columns: 1fr; gap: 16px; } }
+/* Lead feature */
+.lead-story { padding-block: 40px 88px; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
+.lead-story .art { aspect-ratio: 3 / 2; object-position: 50% 62%; }
+.lead-text { display: grid; gap: 18px; justify-items: start; }
+.lead-text h2 { font: 400 clamp(38px, 4.2vw, 58px)/1.02 var(--serif); letter-spacing: -.028em; }
+:root.lang-ko .lead-text h2 { line-height: 1.18; letter-spacing: -.04em; }
+.dek { font-size: 19px; line-height: 1.5; color: var(--ink-2); max-width: 30em; }
+:root.lang-ko .dek { font-size: 17.5px; line-height: 1.75; }
+.lead-text .more { margin-top: 6px; }
+@media (max-width: 860px) { .lead-story { grid-template-columns: minmax(0, 1fr); padding-block: 20px 60px; gap: 22px; } .lead-story .art { aspect-ratio: 4 / 3; object-position: 42% 50%; } }
 
-/* Sections */
-section.block { border-top: 1px solid var(--rule); }
-section.block > .wrap { padding-block: 56px 80px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 32px; }
-.side { display: grid; gap: 8px; align-content: start; }
-.side h2 { font: 400 32px/1.08 var(--serif); letter-spacing: -.015em; }
-.main { min-width: 0; }
-.lead { font-size: 13pt; line-height: 1.55; max-width: 34em; }
-.body { max-width: 38em; color: #2E2E2B; }
-.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--rule); }
-.pair div { display: grid; gap: 8px; align-content: start; }
-.pair p { color: #3B3B38; }
-@media (max-width: 860px) { section.block > .wrap { grid-template-columns: 1fr; padding-block: 40px 60px; gap: 20px; } .pair { grid-template-columns: 1fr; gap: 24px; margin-top: 28px; } }
+/* Sections: a mono label on a rule, then the content */
+.block > .wrap { padding-block: 0 96px; }
+.sec-head { display: flex; align-items: center; gap: 18px; margin-bottom: 40px; }
+.sec-head::after { content: ""; flex: 1; height: 1px; background: var(--ink); order: 1; }
+.sec-head .kicker { color: var(--ink); }
+.sec-head .count { order: 2; }
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.title { font: 400 clamp(32px, 3.3vw, 46px)/1.05 var(--serif); letter-spacing: -.022em; }
+:root.lang-ko .title { line-height: 1.22; letter-spacing: -.04em; }
+.lead { font-size: 19px; line-height: 1.5; color: var(--ink); max-width: 32em; }
+:root.lang-ko .lead { font-size: 17.5px; line-height: 1.75; }
+.body { max-width: 36em; color: var(--ink-2); margin-top: 18px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.pair > div { display: grid; gap: 8px; align-content: start; }
+.pair p:not(.kicker) { color: var(--ink-2); font-size: 15.5px; }
+@media (max-width: 860px) { .block > .wrap { padding-block: 0 72px; } .split { grid-template-columns: minmax(0, 1fr); gap: 22px; } .sec-head { margin-bottom: 28px; } .pair { grid-template-columns: 1fr; gap: 22px; } }
 
-/* Feature row: illustration beside the text */
-section.feature > .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 4vw, 60px); align-items: start; }
-.feature h2 { font: 400 clamp(32px, 3.6vw, 46px)/1.05 var(--serif); letter-spacing: -.02em; margin: 10px 0 22px; }
-@media (max-width: 860px) { section.feature > .wrap { grid-template-columns: 1fr; gap: 24px; } }
+/* About: text with the illustration to its right */
+.about { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.about .title { margin-bottom: 22px; }
+.about .art { aspect-ratio: 4 / 5; object-position: 46% 50%; }
+@media (max-width: 860px) { .about { grid-template-columns: minmax(0, 1fr); } .about .art { order: -1; aspect-ratio: 3 / 2; } }
 
-/* Program cards */
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 28px; }
-.card { display: grid; gap: 10px; align-content: start; min-width: 0; }
-.card .art { margin-bottom: 8px; }
-.card h3 { font: 400 27px/1.12 var(--serif); letter-spacing: -.012em; }
-.card p { color: #3B3B38; font-size: 10.75pt; }
-.card .status { font: 500 13px/1 var(--sans); letter-spacing: .06em; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+/* Teasers (articles) and program cards share one shape: image, kicker, title, byline, dek, link */
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 32px; }
+.card { display: grid; gap: 12px; align-content: start; justify-items: start; min-width: 0; }
+.card .art { margin-bottom: 6px; }
+.card h3 { font: 400 27px/1.1 var(--serif); letter-spacing: -.018em; }
+:root.lang-ko .card h3 { font-size: 25px; line-height: 1.3; letter-spacing: -.04em; }
+.card p:not(.kicker):not(.byline) { color: var(--ink-2); font-size: 15.5px; line-height: 1.55; }
+.card .more, .card .status { margin-top: 4px; }
+.card h3 a { background: linear-gradient(currentColor, currentColor) 0 96% / 0 1px no-repeat; transition: background-size .3s ease; }
+.card:hover h3 a, .card h3 a:focus-visible { background-size: 100% 1px; }
+.card .art-link { display: block; width: 100%; overflow: hidden; }
+.card .art-link img { transition: transform .5s ease; }
+.card:hover .art-link img { transform: scale(1.02); }
+.status { font: 400 12px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding: 6px 9px; border: 1px solid var(--rule); }
+:root.lang-ko .status { letter-spacing: .02em; font-size: 12.5px; }
+.teasers { margin-top: 56px; }
+.teasers .card.first { grid-column: 1 / -1; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(28px, 4vw, 56px); align-items: center; padding-bottom: 48px; border-bottom: 1px solid var(--rule); }
+.teasers .card.first .art-link { grid-row: 1 / span 6; }
+.teasers .card.first h3 { font-size: clamp(32px, 3.3vw, 46px); line-height: 1.05; }
 @media (max-width: 960px) { .cards { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .teasers .card.first { grid-template-columns: minmax(0, 1fr); } .teasers .card.first .art-link { grid-row: auto; } }
+@media (max-width: 600px) { .cards { grid-template-columns: minmax(0, 1fr); } }
 
-/* Newsletter box */
-.letterbox { background: var(--cream); }
-.letterbox .wrap { padding-block: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
-.letterbox h2 { font: 400 clamp(32px, 3.6vw, 46px)/1.06 var(--serif); letter-spacing: -.02em; }
-.letterbox p { margin-top: 12px; color: #3B3B38; }
-.signup { display: flex; gap: 8px; }
-.signup input { flex: 1; min-width: 0; width: 100%; border: 1px solid var(--ink); border-radius: 0; background: var(--paper); padding: 14px 16px; font: 400 15px/1.2 var(--sans); color: var(--ink); }
+/* Newsletter band */
+.letterbox { background: var(--wash); border-block: 1px solid var(--rule); margin-bottom: 96px; }
+.letterbox .wrap { padding-block: 72px 64px; display: grid; justify-items: center; text-align: center; gap: 14px; }
+.letterbox .orn { margin-bottom: 10px; }
+.letterbox h2 { font: 400 clamp(32px, 3.3vw, 46px)/1.06 var(--serif); letter-spacing: -.022em; }
+:root.lang-ko .letterbox h2 { letter-spacing: -.04em; line-height: 1.22; }
+.letterbox p { color: var(--ink-2); max-width: 32em; }
+.signup { display: flex; width: min(100%, 500px); margin-top: 14px; }
+.signup input { flex: 1; min-width: 0; width: 100%; border: 1px solid var(--ink); border-right: 0; border-radius: 0; background: var(--paper); padding: 15px 16px; font: 400 14px/1.2 var(--mono); color: var(--ink); }
 .signup input::placeholder { color: var(--muted); }
-.signup button { border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--paper); padding: 14px 22px; font: 500 15px/1 var(--sans); cursor: pointer; white-space: nowrap; transition: background .2s; }
-.signup button:hover { background: #3A3A36; }
-.fine { font: 400 13px/1.5 var(--sans); color: var(--muted); margin-top: 10px; }
-.form-note { font: 400 14px/1.5 var(--sans); color: var(--ink); min-height: 1.5em; margin-top: 4px; }
-@media (max-width: 760px) { .letterbox .wrap { grid-template-columns: minmax(0, 1fr); } }
+.signup button { border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--paper); padding: 15px 20px; font: 400 12.5px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background .2s; }
+.signup button:hover { background: #45423C; }
+.fine { font: 400 12px/1.5 var(--mono); letter-spacing: .02em; color: var(--muted) !important; }
+.form-note { font: 400 15px/1.5 var(--serif); color: var(--ink) !important; min-height: 1.5em; }
+@media (max-width: 860px) { .letterbox { margin-bottom: 72px; } .letterbox .wrap { padding-block: 56px 48px; } }
 
-/* Lists */
-.list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
-.list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 24px; padding-block: 20px; border-bottom: 1px solid var(--rule); }
-.list h3 { font: 400 23px/1.22 var(--serif); }
-.list p { color: #3B3B38; }
-@media (max-width: 600px) { .list li { grid-template-columns: 1fr; gap: 6px; } }
-
-/* Founder */
-.founder { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 40px; align-items: start; }
+/* People */
+.founder { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: end; }
 .founder .art { aspect-ratio: 4 / 5; }
-.founder .name { font: 500 13pt/1.5 var(--sans); }
+.founder .text { display: grid; gap: 14px; justify-items: start; padding-bottom: 4px; }
+.founder .name { font: 400 clamp(32px, 3.3vw, 46px)/1.08 var(--serif); letter-spacing: -.022em; }
 .founder .name span { display: block; }
-.founder .role { margin-top: 6px; }
-.founder .bio { margin-top: 20px; max-width: 34em; color: #2E2E2B; }
-@media (max-width: 600px) { .founder { grid-template-columns: 1fr; gap: 24px; } .founder .art { max-width: 220px; } }
+.founder .name span:first-child { font-family: "Nanum Myeongjo", serif; letter-spacing: -.04em; }
+.founder .bio { max-width: 34em; color: var(--ink-2); margin-top: 6px; }
+@media (max-width: 600px) { .founder { grid-template-columns: minmax(0, 1fr); gap: 24px; } .founder .art { max-width: 240px; } }
+
+/* Get involved */
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.rows li { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 24px; padding-block: 22px 24px; border-bottom: 1px solid var(--rule); }
+.rows h3 { font: 400 24px/1.2 var(--serif); letter-spacing: -.012em; }
+.rows p { color: var(--ink-2); }
+@media (max-width: 600px) { .rows li { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
 
 /* Reader (published articles) */
-.reader-top { padding-block: 24px; border-bottom: 1px solid var(--rule); }
-.reader-body { padding-block: 52px 96px; }
-.reader-head { max-width: 760px; margin-inline: auto; text-align: center; display: grid; gap: 18px; justify-items: center; }
-.reader-head h1 { font: 400 clamp(40px, 5.6vw, 68px)/1.03 var(--serif); letter-spacing: -.028em; font-variant-numeric: lining-nums; }
-.reader-head .stand { font-size: 14pt; line-height: 1.5; color: #3B3B38; font-style: italic; max-width: 34em; }
-.by { font: 400 14px/1.4 var(--sans); color: var(--muted); }
-.reader-art { margin-top: 44px; aspect-ratio: 3 / 2; }
-.reader-prose { max-width: 680px; margin: 48px auto 0; font-size: 12.25pt; line-height: 1.75; }
-.reader-prose, .reader-prose > div { display: grid; gap: 1.15em; }
-.reader-prose > p:first-of-type::first-letter, .reader-prose > [lang="en"] > p:first-of-type::first-letter { float: left; font-size: 4.2em; line-height: .82; padding: .07em .09em 0 0; font-weight: 500; }
-.reader-prose h3 { font: 500 23px/1.25 var(--serif); letter-spacing: -.01em; margin-top: 1.2em; }
-.reader-prose blockquote { margin: .8em 0; padding-left: 22px; border-left: 3px solid #FF48B0; font: italic 400 17pt/1.4 var(--serif); color: var(--ink); }
-.reader-prose figure { margin: 1em 0; display: grid; gap: 8px; }
-.reader-prose figcaption, .reader-prose .notes { font: 400 13px/1.55 var(--sans); color: var(--muted); }
-.reader-prose .notes { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 1.5em; padding-left: 1.2em; }
+.reader-top { padding-block: 22px; border-bottom: 1px solid var(--rule); }
+.reader-body { padding-block: 56px 96px; }
+.reader-head { max-width: 820px; margin-inline: auto; text-align: center; display: grid; gap: 20px; justify-items: center; }
+.reader-head h1 { font: 400 clamp(42px, 5.6vw, 76px)/1 var(--serif); letter-spacing: -.032em; }
+:root.lang-ko .reader-head h1 { line-height: 1.2; letter-spacing: -.045em; }
+.reader-head .stand { font: italic 400 20px/1.45 var(--serif); color: var(--ink-2); max-width: 32em; }
+:root.lang-ko .reader-head .stand { font-style: normal; font-size: 18px; line-height: 1.7; }
+.reader-art { margin: 48px auto 0; max-width: 1120px; aspect-ratio: 3 / 2; }
+.reader-prose { max-width: 680px; margin: 56px auto 0; font-size: 19px; line-height: 1.62; position: relative; }
+:root.lang-ko .reader-prose { font-size: 17.5px; line-height: 1.9; }
+.reader-prose, .reader-prose > div { display: grid; gap: 1.05em; }
+.reader-prose > p:first-of-type::first-letter, .reader-prose > [lang="en"] > p:first-of-type::first-letter { float: left; font-size: 3.5em; line-height: .84; padding: .06em .08em 0 0; }
+.reader-prose h3 { font: 400 27px/1.2 var(--serif); letter-spacing: -.015em; margin-top: 1.1em; }
+.reader-prose blockquote { margin: .6em 0; padding: 0; font: italic 400 20px/1.45 var(--serif); color: var(--ink); text-align: center; border-block: 1px solid var(--rule); padding-block: 22px; }
+.reader-prose figure { margin: .8em 0; display: grid; gap: 10px; }
+.reader-prose figcaption, .reader-prose .notes { font: 400 12.5px/1.6 var(--mono); color: var(--muted); }
+.reader-prose .notes { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 1.5em; padding-left: 1.4em; }
 .reader-prose a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.reader-prose sup { line-height: 0; font-size: .7em; }
-.reader-end { max-width: 680px; margin: 56px auto 0; }
+.reader-prose sup { line-height: 0; font: 400 .62em/0 var(--mono); }
+/* Marginalia: <aside class="note"> inside the prose sits in the right margin on wide screens */
+.reader-prose aside { font: 400 12.5px/1.6 var(--mono); color: var(--muted); border-top: 1px solid var(--rule); padding-top: 10px; }
+@media (min-width: 1180px) { .reader-prose aside { position: absolute; right: -264px; width: 220px; margin-top: .3em; } }
+.reader-end { max-width: 680px; margin: 64px auto 0; display: grid; gap: 28px; justify-items: center; }
 
 /* Footer */
 footer { border-top: 1px solid var(--ink); }
-.foot-grid { padding-block: 48px 40px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr) minmax(0, 1fr) minmax(0, 1.3fr); gap: 32px; font: 400 14px/1.65 var(--sans); color: var(--muted); }
-.foot-grid > div, .foot-grid > nav { display: grid; gap: 10px; align-content: start; }
-.foot-grid .label { margin-bottom: 2px; }
-.foot-name { color: var(--ink); font-weight: 600; letter-spacing: .14em; }
-.foot-links { gap: 6px !important; }
-.foot-links a:hover, .foot-news a:hover { color: var(--ink); }
-.foot-news .more { justify-self: start; color: var(--ink); margin-top: 4px; }
-.foot-bottom { border-top: 1px solid var(--rule); padding-block: 18px 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font: 400 13px/1.5 var(--sans); color: var(--muted); }
+.foot-grid { padding-block: 48px 44px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr) minmax(0, 1fr) minmax(0, 1.3fr); gap: 32px; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.foot-grid > div, .foot-grid > nav { display: grid; gap: 10px; align-content: start; justify-items: start; }
+.foot-name { font: 400 30px/1 var(--serif); letter-spacing: -.02em; color: var(--ink); }
+.foot-links a { font: 400 15px/1.4 var(--serif); }
+.foot-links a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.foot-bottom { border-top: 1px solid var(--rule); padding-block: 16px 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font: 400 12px/1.5 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
 @media (max-width: 860px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) { .foot-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .foot-grid { grid-template-columns: minmax(0, 1fr); } }
 </style>
-
-<a class="skip" href="#top"><span lang="en">Skip to content</span><span lang="ko">본문 바로가기</span></a>
 </head>
 <body>
+<a class="skip" href="#top"><span lang="en">Skip to content</span><span lang="ko">본문 바로가기</span></a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="orn" viewBox="0 0 96 13"><path d="M0 6.5H37M59 6.5H96" stroke="currentColor" stroke-width="1"/><g fill="currentColor"><rect x="46.5" y=".5" width="3" height="3"/><rect x="41.5" y="5" width="3" height="3"/><rect x="51.5" y="5" width="3" height="3"/><rect x="46.5" y="9.5" width="3" height="3"/><rect x="47.25" y="5.75" width="1.5" height="1.5"/></g></symbol></svg>
 <header class="topbar">
-  <div class="wrap">
-    <a class="home" href="#top" aria-label="In Common, home"><svg viewBox="0 0 62 70" aria-hidden="true"><path d="M8 66 V30 A23 23 0 0 1 54 30 V66" stroke-width="7"/></svg>IN COMMON</a>
+  <div class="wrap bar">
+    <a class="home" href="#top" aria-label="In Common, home">In Common</a>
     <button class="menu-btn" id="menuBtn" type="button" aria-controls="nav" aria-expanded="false"><span class="m-closed"><span lang="en">Menu</span><span lang="ko">메뉴</span></span><span class="m-open"><span lang="en">Close</span><span lang="ko">닫기</span></span></button>
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="#about"><span lang="en">About</span><span lang="ko">소개</span></a>
-      <a href="#articles"><span lang="en">Articles</span><span lang="ko">글</span></a>
-      <a href="#programs"><span lang="en">Programs</span><span lang="ko">프로그램</span></a>
-      <a href="#people"><span lang="en">People</span><span lang="ko">구성원</span></a>
-      <a href="#involved"><span lang="en">Get involved</span><span lang="ko">참여</span></a>
-      <div class="lang" role="group" aria-label="Language"><button id="btnEn" type="button" aria-pressed="true">EN</button><button id="btnKo" type="button" aria-pressed="false">한국어</button></div>
+      <div class="nav-l">
+        <a href="#about"><span lang="en">About</span><span lang="ko">소개</span></a>
+        <a href="#articles"><span lang="en">Articles</span><span lang="ko">글</span></a>
+        <a href="#programs"><span lang="en">Programs</span><span lang="ko">프로그램</span></a>
+      </div>
+      <div class="nav-r">
+        <a href="#people"><span lang="en">People</span><span lang="ko">구성원</span></a>
+        <a href="#involved"><span lang="en">Get involved</span><span lang="ko">참여</span></a>
+        <div class="lang" role="group" aria-label="Language"><button id="btnEn" type="button" aria-pressed="true">EN</button><button id="btnKo" type="button" aria-pressed="false">한국어</button></div>
+        <a class="sub" href="#newsletter"><span lang="en">Subscribe</span><span lang="ko">구독</span></a>
+      </div>
     </nav>
   </div>
 </header>
@@ -220,70 +272,73 @@ footer { border-top: 1px solid var(--ink); }
 <main id="home">
   <div class="wrap" id="top">
     <div class="masthead">
-      <h1>In Common</h1>
-      <p class="label mast-sub"><span class="nw"><span lang="en">Arts, Law &amp; Technology Center</span><span lang="ko">예술 · 법 · 기술 센터</span></span><span class="sep" aria-hidden="true">·</span><span class="nw"><span lang="en">New York · Seoul</span><span lang="ko">뉴욕 · 서울</span></span></p>
+      <h1 class="mast-title" id="mast">In Common</h1>
+      <p class="kicker dateline"><span><span lang="en">Arts, Law &amp; Technology Center</span><span lang="ko">예술 · 법 · 기술 센터</span></span><span><span lang="en">New York · Seoul</span><span lang="ko">뉴욕 · 서울</span></span><span><span lang="en">Est. 2026</span><span lang="ko">2026년 설립</span></span></p>
     </div>
 
     <article class="lead-story">
       <img class="art" src="img/rooftop.webp" width="1800" height="1000" fetchpriority="high" decoding="async" alt="Illustration of a Brooklyn rooftop at sunset: a water tower, a framed pixel painting of the sun, potted plants and the bridge behind.">
       <div class="lead-text">
-        <div><p class="label"><span lang="en">Est. 2026</span><span lang="ko">2026년 설립</span></p><h2><span lang="en">Where law, art, and technology intersect.</span><span lang="ko">법과 예술, 기술이 만나는 곳.</span></h2></div>
-        <div>
-          <p class="dek" lang="en">In Common is an arts, law and technology center based in New York and Seoul. We research art law and technology law, and share the work through articles, conversations and a monthly salon.</p>
-          <p class="dek" lang="ko">In Common은 뉴욕과 서울에 기반을 둔 <span style="white-space:nowrap">예술·법·기술</span> 센터입니다. 예술법과 기술법을 연구하고, 그 결과를 글과 대담, 월간 살롱을 통해 공유합니다.</p>
-          <p><a class="more" href="#about"><span lang="en">About the center</span><span lang="ko">센터 소개</span> →</a></p>
-        </div>
+        <p class="kicker"><span lang="en">Art law · Technology law</span><span lang="ko">예술법 · 기술법</span></p>
+        <h2><span lang="en">Where law, art, and technology intersect.</span><span lang="ko">법과 예술, 기술이 만나는 곳.</span></h2>
+        <p class="dek" lang="en">In Common is an arts, law and technology center based in New York and Seoul. We research art law and technology law, and share the work through articles, conversations and a monthly salon.</p>
+        <p class="dek" lang="ko">In Common은 뉴욕과 서울에 기반을 둔 <span style="white-space:nowrap">예술·법·기술</span> 센터입니다. 예술법과 기술법을 연구하고, 그 결과를 글과 대담, 월간 살롱을 통해 공유합니다.</p>
+        <a class="more" href="#about"><span lang="en">About the center</span><span lang="ko">센터 소개</span><span class="arr" aria-hidden="true">→</span></a>
       </div>
     </article>
   </div>
 
-  <section class="block feature" id="about">
+  <section class="block" id="about">
     <div class="wrap">
-      <img class="art" src="img/bust.webp" width="1200" height="800" loading="lazy" decoding="async" alt="Illustration of a classical bust on a column with glitched, pixel-shifted stripes across its face, beside a stack of law books and a gavel.">
-      <div class="main">
-        <p class="label"><span lang="en">About</span><span lang="ko">소개</span></p><h2><span lang="en">Research</span><span lang="ko">연구</span></h2>
-        <p class="lead" lang="en">In Common is a research center for art law and technology law. We study how the law governs creative work, from authorship and copyright to the art market and cultural heritage, and how that law is changing in response to artificial intelligence, data and digital platforms.</p>
-        <p class="lead" lang="ko">In Common은 예술법과 기술법을 연구하는 센터입니다. 저작권과 저작자 문제에서 미술시장, 문화유산에 이르기까지 법이 창작 활동을 어떻게 규율하는지 살피고, 인공지능과 데이터, 디지털 플랫폼의 등장으로 법이 어떻게 달라지고 있는지 연구합니다.</p>
-        <p class="body" style="margin-top:20px" lang="en">Legal scholars, practitioners and artists take part in the work together, so each question is examined from the side of the law and from the side of the people who make the work.</p>
-        <p class="body" style="margin-top:20px" lang="ko">법학자와 실무 법률가, 예술가가 함께 참여해 하나의 쟁점을 법의 관점과 창작자의 관점에서 함께 검토합니다.</p>
-        <div class="pair">
-          <div><p class="label"><span lang="en">Research areas</span><span lang="ko">연구 분야</span></p><p lang="en">Art law: copyright and moral rights, the art market, cultural heritage.<br>Technology law: artificial intelligence, data, digital platforms and the regulation of new technologies.</p><p lang="ko">예술법: 저작권과 저작인격권, 미술시장, 문화유산<br>기술법: 인공지능, 데이터, 디지털 플랫폼, 신기술 규제</p></div>
-          <div><p class="label"><span lang="en">Approach</span><span lang="ko">연구 방법</span></p><p lang="en">Our research is comparative. Each study starts from an actual case, statute or dispute and examines how different jurisdictions have dealt with it. Findings are published in English and Korean.</p><p lang="ko">비교법 연구를 바탕으로 합니다. 실제 판례와 법령, 분쟁 사례에서 출발해 여러 나라의 법제를 함께 검토하며, 연구 결과는 국문과 영문으로 발표합니다.</p></div>
+      <div class="sec-head"><p class="kicker"><span lang="en">About</span><span lang="ko">소개</span></p></div>
+      <div class="about">
+        <div>
+          <h2 class="title"><span lang="en">Research</span><span lang="ko">연구</span></h2>
+          <p class="lead" lang="en">In Common is a research center for art law and technology law. We study how the law governs creative work, from authorship and copyright to the art market and cultural heritage, and how that law is changing in response to artificial intelligence, data and digital platforms.</p>
+          <p class="lead" lang="ko">In Common은 예술법과 기술법을 연구하는 센터입니다. 저작권과 저작자 문제에서 미술시장, 문화유산에 이르기까지 법이 창작 활동을 어떻게 규율하는지 살피고, 인공지능과 데이터, 디지털 플랫폼의 등장으로 법이 어떻게 달라지고 있는지 연구합니다.</p>
+          <p class="body" lang="en">Legal scholars, practitioners and artists take part in the work together, so each question is examined from the side of the law and from the side of the people who make the work.</p>
+          <p class="body" lang="ko">법학자와 실무 법률가, 예술가가 함께 참여해 하나의 쟁점을 법의 관점과 창작자의 관점에서 함께 검토합니다.</p>
+          <div class="pair">
+            <div><p class="kicker"><span lang="en">Research areas</span><span lang="ko">연구 분야</span></p><p lang="en">Art law: copyright and moral rights, the art market, cultural heritage.<br>Technology law: artificial intelligence, data, digital platforms and the regulation of new technologies.</p><p lang="ko">예술법: 저작권과 저작인격권, 미술시장, 문화유산<br>기술법: 인공지능, 데이터, 디지털 플랫폼, 신기술 규제</p></div>
+            <div><p class="kicker"><span lang="en">Approach</span><span lang="ko">연구 방법</span></p><p lang="en">Our research is comparative. Each study starts from an actual case, statute or dispute and examines how different jurisdictions have dealt with it. Findings are published in English and Korean.</p><p lang="ko">비교법 연구를 바탕으로 합니다. 실제 판례와 법령, 분쟁 사례에서 출발해 여러 나라의 법제를 함께 검토하며, 연구 결과는 국문과 영문으로 발표합니다.</p></div>
+          </div>
         </div>
+        <img class="art" src="img/bust.webp" width="1200" height="800" loading="lazy" decoding="async" alt="Illustration of a classical bust on a column with glitched, pixel-shifted stripes across its face, beside a stack of law books and a gavel.">
       </div>
     </div>
   </section>
 
   <section class="block" id="articles">
     <div class="wrap">
-      <div class="side"><p class="label"><span lang="en">Articles</span><span lang="ko">글</span></p><h2><span lang="en">One question a month</span><span lang="ko">매달 하나의 쟁점</span></h2></div>
-      <div class="main">
-        <ol class="list" id="essayList" hidden></ol>
+      <div class="sec-head"><p class="kicker"><span lang="en">Articles</span><span lang="ko">글</span></p></div>
+      <div class="split">
+        <h2 class="title"><span lang="en">One question a month</span><span lang="ko">매달 하나의 쟁점</span></h2>
         <div id="journalNote">
           <p class="lead" lang="en">The first article will be published in November 2026, followed by a new one each month in English and Korean.</p>
           <p class="lead" lang="ko">첫 글은 2026년 11월에 게재되며, 이후 매달 한 편씩 국문과 영문으로 발표합니다.</p>
-          <p class="body" style="margin-top:20px" lang="en">Each article takes up a single legal question and compares how courts and legislatures in different countries have answered it. They are written for readers inside and outside the legal profession.</p>
-          <p class="body" style="margin-top:20px" lang="ko">각 글은 하나의 법적 쟁점을 정해 여러 나라의 판례와 입법례를 비교합니다. 법률 전문가가 아닌 독자도 읽을 수 있도록 씁니다.</p>
+          <p class="body" lang="en">Each article takes up a single legal question and compares how courts and legislatures in different countries have answered it. They are written for readers inside and outside the legal profession.</p>
+          <p class="body" lang="ko">각 글은 하나의 법적 쟁점을 정해 여러 나라의 판례와 입법례를 비교합니다. 법률 전문가가 아닌 독자도 읽을 수 있도록 씁니다.</p>
         </div>
       </div>
+      <div class="cards teasers" id="essayList" hidden></div>
     </div>
   </section>
 
   <section class="block" id="programs">
-    <div class="wrap" style="grid-template-columns:1fr">
-      <div class="side"><p class="label"><span lang="en">Programs</span><span lang="ko">프로그램</span></p></div>
+    <div class="wrap">
+      <div class="sec-head"><p class="kicker"><span lang="en">Programs</span><span lang="ko">프로그램</span></p></div>
       <div class="cards">
         <article class="card">
           <img class="art" src="img/stoop.webp" width="1200" height="800" loading="lazy" decoding="async" alt="Illustration of a brownstone stoop with a blue door, a mailbox and letters flying across the brick wall.">
-          <p class="label"><span lang="en">Newsletter</span><span lang="ko">뉴스레터</span></p>
+          <p class="kicker"><span lang="en">Newsletter</span><span lang="ko">뉴스레터</span></p>
           <h3><span lang="en">Monthly newsletter</span><span lang="ko">월간 뉴스레터</span></h3>
           <p lang="en">Each issue brings the month's article, a note on a current exhibition, and recent cases and legislation in art law and technology law. In English and Korean.</p>
           <p lang="ko">매달 새 글과 전시 소식, 예술법·기술법 분야의 주요 판례와 입법 동향을 정리해 보내드립니다. 국문과 영문으로 발행합니다.</p>
-          <a class="more" href="#newsletter" style="justify-self:start"><span lang="en">Sign up</span><span lang="ko">구독하기</span> →</a>
+          <a class="more" href="#newsletter"><span lang="en">Sign up</span><span lang="ko">구독하기</span><span class="arr" aria-hidden="true">→</span></a>
         </article>
         <article class="card">
           <img class="art" src="img/studio.webp" width="1200" height="800" loading="lazy" decoding="async" alt="Illustration of two armchairs facing a microphone in a loft studio with a big factory window.">
-          <p class="label"><span lang="en">Podcast</span><span lang="ko">팟캐스트</span></p>
+          <p class="kicker"><span lang="en">Podcast</span><span lang="ko">팟캐스트</span></p>
           <h3><span lang="en">Conversations</span><span lang="ko">대담</span></h3>
           <p lang="en">A lawyer and an artist discuss the question behind each month's article.</p>
           <p lang="ko">법률가와 예술가가 그달 글의 쟁점을 두고 이야기를 나눕니다.</p>
@@ -291,7 +346,7 @@ footer { border-top: 1px solid var(--ink); }
         </article>
         <article class="card">
           <img class="art" src="img/salon.webp" width="1200" height="800" loading="lazy" decoding="async" alt="Illustration of five people seen from behind, looking at colourful paintings under string lights.">
-          <p class="label"><span lang="en">Community</span><span lang="ko">커뮤니티</span></p>
+          <p class="kicker"><span lang="en">Community</span><span lang="ko">커뮤니티</span></p>
           <h3><span lang="en">Monthly salon</span><span lang="ko">월간 살롱</span></h3>
           <p lang="en">An open online meeting on each month's topic, for researchers, practitioners, artists and anyone interested.</p>
           <p lang="ko">매달 한 가지 주제로 온라인 모임을 엽니다. 연구자, 실무자, 예술가 등 관심 있는 분은 누구나 참여할 수 있습니다.</p>
@@ -303,32 +358,29 @@ footer { border-top: 1px solid var(--ink); }
 
   <section class="letterbox" id="newsletter">
     <div class="wrap">
-      <div>
-        <h2><span lang="en">Get In Common by email</span><span lang="ko">뉴스레터 구독</span></h2>
-        <p lang="en">One email a month with the new article and recent developments in the field.</p>
-        <p lang="ko">매달 한 번, 새 글과 주요 소식을 메일로 보내드립니다.</p>
-      </div>
-      <div>
-        <form class="signup" id="signup" novalidate>
-          <label for="email" style="position:absolute;left:-9999px">Email address</label>
-          <input id="email" name="email" type="email" placeholder="Email address" autocomplete="email">
-          <button type="submit"><span lang="en">Sign up</span><span lang="ko">구독</span> →</button>
-        </form>
-        <p class="fine" lang="en">Free, once a month, in English and Korean.</p>
-        <p class="fine" lang="ko">무료이며 매달 한 번, 국문과 영문으로 발행합니다.</p>
-        <p class="form-note" id="formNote" role="status"></p>
-      </div>
+      <svg class="orn" aria-hidden="true"><use href="#orn"/></svg>
+      <h2><span lang="en">Get In Common by email</span><span lang="ko">뉴스레터 구독</span></h2>
+      <p lang="en">One email a month with the new article and recent developments in the field.</p>
+      <p lang="ko">매달 한 번, 새 글과 주요 소식을 메일로 보내드립니다.</p>
+      <form class="signup" id="signup" novalidate>
+        <label for="email" class="sr">Email address</label>
+        <input id="email" name="email" type="email" placeholder="Email address" autocomplete="email">
+        <button type="submit"><span lang="en">Sign up</span><span lang="ko">구독</span></button>
+      </form>
+      <p class="fine" lang="en">Free, once a month, in English and Korean.</p>
+      <p class="fine" lang="ko">무료이며 매달 한 번, 국문과 영문으로 발행합니다.</p>
+      <p class="form-note" id="formNote" role="status"></p>
     </div>
   </section>
 
-  <section class="block" id="people" style="border-top:0">
+  <section class="block" id="people">
     <div class="wrap">
-      <div class="side"><p class="label"><span lang="en">People</span><span lang="ko">구성원</span></p><h2><span lang="en">Founder</span><span lang="ko">설립자</span></h2></div>
-      <div class="main founder">
+      <div class="sec-head"><p class="kicker"><span lang="en">People</span><span lang="ko">구성원</span></p></div>
+      <div class="founder">
         <img class="art" src="img/window.webp" width="640" height="800" loading="lazy" decoding="async" alt="Illustration of a window with two potted plants and a city skyline at sunset.">
-        <div>
-          <p class="name"><span>강화연</span><span>Hwayeon Kang</span></p>
-          <p class="label role"><span lang="en">Director, Founder</span><span lang="ko">디렉터, 설립자</span></p>
+        <div class="text">
+          <p class="kicker"><span lang="en">Director, Founder</span><span lang="ko">디렉터, 설립자</span></p>
+          <h2 class="name"><span>강화연</span><span>Hwayeon Kang</span></h2>
           <p class="bio" lang="en">Hwayeon Kang founded In Common and serves as its director, writing the center's monthly articles on art law and technology law in English and Korean.</p>
           <p class="bio" lang="ko">In Common을 설립하고 디렉터를 맡고 있습니다. 예술법과 기술법을 주제로 센터의 월간 글을 국문과 영문으로 집필합니다.</p>
         </div>
@@ -338,9 +390,10 @@ footer { border-top: 1px solid var(--ink); }
 
   <section class="block" id="involved">
     <div class="wrap">
-      <div class="side"><p class="label"><span lang="en">Get involved</span><span lang="ko">참여</span></p><h2><span lang="en">Work with us</span><span lang="ko">함께하기</span></h2></div>
-      <div class="main">
-        <ul class="list">
+      <div class="sec-head"><p class="kicker"><span lang="en">Get involved</span><span lang="ko">참여</span></p></div>
+      <div class="split">
+        <h2 class="title"><span lang="en">Work with us</span><span lang="ko">함께하기</span></h2>
+        <ul class="rows">
           <li><h3><span lang="en">Contribute</span><span lang="ko">기고</span></h3><p lang="en">We welcome article proposals from researchers, practitioners and artists, and suggestions for exhibitions to review.</p><p lang="ko">연구자, 실무자, 예술가의 원고 제안을 받습니다. 다룰 만한 전시가 있다면 추천해 주세요.</p></li>
           <li><h3><span lang="en">Join the salon</span><span lang="ko">살롱 참여</span></h3><p lang="en">Dates and topics are announced in the newsletter. Anyone with an interest is welcome, whatever their field.</p><p lang="ko">모임 일정과 주제는 뉴스레터로 안내합니다. 분야와 관계없이 누구나 참여할 수 있습니다.</p></li>
           <li><h3><span lang="en">Partner with us</span><span lang="ko">협력</span></h3><p lang="en">Galleries, museums, law firms and universities are welcome to propose joint research, events or residencies.</p><p lang="ko">갤러리, 미술관, 로펌, 대학 등과의 공동 연구, 행사, 레지던시 협력을 환영합니다.</p></li>
@@ -352,17 +405,20 @@ footer { border-top: 1px solid var(--ink); }
 
 <main id="reader" hidden>
   <div class="wrap">
-    <div class="reader-top"><a class="more" href="#articles">← <span lang="en">All articles</span><span lang="ko">글 목록</span></a></div>
+    <div class="reader-top"><a class="more" href="#articles"><span class="arr back" aria-hidden="true">←</span><span lang="en">All articles</span><span lang="ko">글 목록</span></a></div>
     <article class="reader-body">
       <header class="reader-head">
-        <p class="label" id="readerMeta"></p>
+        <p class="kicker" id="readerMeta"></p>
         <h1 id="readerTitle"></h1>
         <p class="stand" id="readerStand"></p>
-        <p class="by"><span lang="en">Words by Hwayeon Kang</span><span lang="ko">글 강화연</span><span id="readerTime"></span></p>
+        <p class="byline"><span lang="en">Words by <b id="readerByEn">Hwayeon Kang</b></span><span lang="ko">글 <b id="readerByKo">강화연</b></span><span id="readerTime"></span></p>
       </header>
       <img class="art reader-art" id="readerArt" alt="" hidden>
       <div class="reader-prose" id="readerProse"></div>
-      <p class="reader-end"><a class="more" href="#articles">← <span lang="en">All articles</span><span lang="ko">글 목록</span></a></p>
+      <div class="reader-end">
+        <svg class="orn" aria-hidden="true"><use href="#orn"/></svg>
+        <a class="more" href="#articles"><span class="arr back" aria-hidden="true">←</span><span lang="en">All articles</span><span lang="ko">글 목록</span></a>
+      </div>
     </article>
   </div>
 </main>
@@ -371,25 +427,25 @@ footer { border-top: 1px solid var(--ink); }
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <p class="foot-name">IN COMMON</p>
+        <p class="foot-name">In Common</p>
         <p><span lang="en">Arts, Law &amp; Technology Center</span><span lang="ko">예술 · 법 · 기술 센터</span><br><span lang="en">New York · Seoul</span><span lang="ko">뉴욕 · 서울</span></p>
       </div>
       <nav class="foot-links" aria-label="Footer">
-        <p class="label"><span lang="en">Explore</span><span lang="ko">둘러보기</span></p>
+        <p class="kicker"><span lang="en">Explore</span><span lang="ko">둘러보기</span></p>
         <a href="#about"><span lang="en">About</span><span lang="ko">소개</span></a>
         <a href="#articles"><span lang="en">Articles</span><span lang="ko">글</span></a>
         <a href="#programs"><span lang="en">Programs</span><span lang="ko">프로그램</span></a>
         <a href="#people"><span lang="en">People</span><span lang="ko">구성원</span></a>
         <a href="#involved"><span lang="en">Get involved</span><span lang="ko">참여</span></a>
       </nav>
-      <div class="foot-news">
-        <p class="label"><span lang="en">Newsletter</span><span lang="ko">뉴스레터</span></p>
+      <div>
+        <p class="kicker"><span lang="en">Newsletter</span><span lang="ko">뉴스레터</span></p>
         <p lang="en">One email a month with the new article and recent cases.</p>
         <p lang="ko">매달 한 번, 새 글과 주요 판례 소식을 보내드립니다.</p>
-        <a class="more" href="#newsletter"><span lang="en">Sign up</span><span lang="ko">구독하기</span> →</a>
+        <a class="more" href="#newsletter"><span lang="en">Sign up</span><span lang="ko">구독하기</span><span class="arr" aria-hidden="true">→</span></a>
       </div>
       <div>
-        <p class="label"><span lang="en">Notice</span><span lang="ko">안내</span></p>
+        <p class="kicker"><span lang="en">Notice</span><span lang="ko">안내</span></p>
         <p lang="en">In Common publishes for research and education. Nothing on this site is legal advice, and In Common does not represent clients.</p>
         <p lang="ko">In Common의 게시물은 연구와 교육을 위해 작성되었으며 법률 자문에 해당하지 않습니다. In Common은 사건을 수임하지 않습니다.</p>
       </div>
@@ -404,7 +460,10 @@ footer { border-top: 1px solid var(--ink); }
   var root = document.documentElement;
   /* Published articles only. Upcoming subjects stay off the public site; add an entry on its publish date.
      Shape: {date:'2026-11-10', en:'Title', ko:'제목', standEn:'Standfirst', standKo:'요약', body:'<p>…</p>', bodyKo:'<p>…</p>',
-             image:'img/….webp', imageAlt:'…'}  (bodyKo, image and imageAlt are optional) */
+             image:'img/….webp', imageAlt:'…', byEn:'Hwayeon Kang', byKo:'강화연'}
+     (bodyKo, image, imageAlt, byEn and byKo are optional). Oldest first: essays[0] is #article-01.
+     The home page lists them newest first, with the newest shown large.
+     In the body, <aside class="note">…</aside> after a paragraph becomes a margin note on wide screens. */
   var essays = [];
   function bi(en, ko) { return '<span lang="en">' + en + '</span><span lang="ko">' + ko + '</span>'; }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
@@ -414,11 +473,19 @@ footer { border-top: 1px solid var(--ink); }
     var m = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     return p[2] + ' ' + m[p[1] - 1] + ' ' + p[0];
   }
+  function minutes(e) { return Math.max(1, Math.round((e.body || '').replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length / 230)); }
 
   var list = document.getElementById('essayList');
   if (essays.length) {
-    list.innerHTML = essays.map(function (e, i) {
-      return '<li><h3><a href="#article-' + pad(i + 1) + '">' + bi(e.en, e.ko) + '</a></h3><p>' + bi(dateText(e.date), dateText(e.date, true)) + '</p></li>';
+    list.innerHTML = essays.map(function (e, i) { return [e, i]; }).reverse().map(function (pair, i) {
+      var e = pair[0], href = '#article-' + pad(pair[1] + 1);
+      var img = e.image ? '<a class="art-link" href="' + href + '" tabindex="-1" aria-hidden="true"><img class="art" src="' + e.image + '" alt="" loading="lazy" decoding="async"></a>' : '';
+      return '<article class="card' + (i === 0 ? ' first' : '') + '">' + img +
+        '<p class="kicker">' + bi(dateText(e.date), dateText(e.date, true)) + '</p>' +
+        '<h3><a href="' + href + '">' + bi(e.en, e.ko) + '</a></h3>' +
+        '<p class="byline">' + bi('Words by <b>' + (e.byEn || 'Hwayeon Kang') + '</b>', '글 <b>' + (e.byKo || '강화연') + '</b>') + '</p>' +
+        (e.standEn ? '<p>' + bi(e.standEn, e.standKo || e.standEn) + '</p>' : '') +
+        '<a class="more" href="' + href + '">' + bi('Read more', '읽기') + '<span class="arr" aria-hidden="true">→</span></a></article>';
     }).join('');
     list.hidden = false;
     document.getElementById('journalNote').hidden = true;
@@ -426,6 +493,7 @@ footer { border-top: 1px solid var(--ink); }
 
   var home = document.getElementById('home'), reader = document.getElementById('reader');
   var nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
+  function closeMenu() { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
   function route() {
     var h = (location.hash || '').slice(1);
     var m = /^article-(\d\d)$/.exec(h);
@@ -433,25 +501,36 @@ footer { border-top: 1px solid var(--ink); }
     if (e) {
       document.getElementById('readerMeta').innerHTML = bi(dateText(e.date), dateText(e.date, true));
       document.getElementById('readerTitle').innerHTML = bi(e.en, e.ko);
-      document.getElementById('readerStand').innerHTML = bi(e.standEn || '', e.standKo || '');
+      document.getElementById('readerStand').innerHTML = bi(e.standEn || '', e.standKo || e.standEn || '');
+      document.getElementById('readerByEn').textContent = e.byEn || 'Hwayeon Kang';
+      document.getElementById('readerByKo').textContent = e.byKo || '강화연';
       document.getElementById('readerProse').innerHTML = e.bodyKo ? '<div lang="en">' + (e.body || '') + '</div><div lang="ko">' + e.bodyKo + '</div>' : (e.body || '');
       var art = document.getElementById('readerArt');
       if (e.image) { art.src = e.image; art.alt = e.imageAlt || ''; art.hidden = false; } else { art.hidden = true; art.removeAttribute('src'); }
-      var mins = Math.max(1, Math.round((e.body || '').replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length / 230));
+      var mins = minutes(e);
       document.getElementById('readerTime').innerHTML = ' · ' + bi(mins + ' min read', mins + '분 분량');
       document.title = e.en + ' · In Common';
       home.hidden = true; reader.hidden = false; window.scrollTo(0, 0);
+      root.classList.remove('mast-in');
     } else {
       reader.hidden = true; home.hidden = false; document.title = 'In Common';
       var t = h && document.getElementById(h);
       if (t) t.scrollIntoView();
     }
-    nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false');
+    closeMenu();
   }
   menuBtn.addEventListener('click', function () {
     var open = nav.classList.toggle('open');
     menuBtn.setAttribute('aria-expanded', String(open));
   });
+  nav.addEventListener('click', function (ev) { if (ev.target.closest('a')) closeMenu(); });
+
+  /* The large masthead names the page; the small wordmark in the bar appears once it scrolls away. */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) {
+      root.classList.toggle('mast-in', en[0].isIntersecting && !home.hidden);
+    }, { rootMargin: '-60px 0px 0px 0px' }).observe(document.getElementById('mast'));
+  }
 
   function setLang(l) {
     if (l !== 'ko') l = 'en';
@@ -459,6 +538,7 @@ footer { border-top: 1px solid var(--ink); }
     root.lang = l;
     document.getElementById('btnEn').setAttribute('aria-pressed', String(l === 'en'));
     document.getElementById('btnKo').setAttribute('aria-pressed', String(l === 'ko'));
+    document.getElementById('email').placeholder = l === 'ko' ? '이메일 주소' : 'Email address';
     try { localStorage.setItem('incommon-language', l); } catch (err) {}
   }
   document.getElementById('btnEn').addEventListener('click', function () { setLang('en'); });
